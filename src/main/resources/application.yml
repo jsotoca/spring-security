@@ -8,10 +8,10 @@ spring:
       max-file-size: -1
       max-request-size: -1
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/db_biblioteca?serverTimezone=America/Lima&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://${HOST}:${DB_PORT}/db_biblioteca?serverTimezone=America/Lima&allowPublicKeyRetrieval=true&useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: administrador
-    password: Rj2Ma4vU1Vi1
+    username: ${USER}
+    password: ${PASSWORD}
   jpa:
     defer-datasource-initialization: true
     hibernate:
