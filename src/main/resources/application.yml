@@ -1,0 +1,27 @@
+server:
+  port: ${PORT:8080}
+spring:
+  application:
+    name: ms-security
+  servlet:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_biblioteca?serverTimezone=America/Lima&allowPublicKeyRetrieval=true&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: administrador
+    password: Rj2Ma4vU1Vi1
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        '[show_sql]': true
+        '[use_sql_comments]': false
+        '[format_sql]': false
+    show-sql: true
+
+
+
