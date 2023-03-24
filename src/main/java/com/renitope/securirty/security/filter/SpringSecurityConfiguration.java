@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class SpringSecurityConfiguration {
 
     private final UserDetailsService userDetailsService;
@@ -39,9 +41,9 @@ public class SpringSecurityConfiguration {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/auth/login").permitAll()
                 .antMatchers("/free/**").permitAll()
-                .antMatchers("/public/**").hasRole("USER")
-                .antMatchers("/private/**").hasRole("ADMIN")
-                .antMatchers("/**", "/shared/**").hasAnyRole("ADMIN", "USER")
+                //.antMatchers("/public/**").hasRole("USER")
+                //.antMatchers("/private/**").hasRole("ADMIN")
+                .antMatchers("/proveedor/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated();
 
         http.authenticationProvider(authenticationProvider());

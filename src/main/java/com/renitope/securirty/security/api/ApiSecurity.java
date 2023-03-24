@@ -3,6 +3,7 @@ package com.renitope.securirty.security.api;
 import com.renitope.securirty.security.dto.LoginRequest;
 import com.renitope.securirty.security.dto.TokenResponse;
 import com.renitope.securirty.security.exceptions.TokenException;
+import com.renitope.securirty.security.service.UsuarioServiceImpl;
 import com.renitope.securirty.security.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,10 +24,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:8081")
 public class ApiSecurity {
 
     @Autowired
     private final UserDetailsService userDetailsService;
+
+    @Autowired
+    private final UsuarioServiceImpl usuarioService;
 
     @Autowired
     private final JWTUtils jwtUtils;
@@ -67,5 +69,11 @@ public class ApiSecurity {
             System.out.println("attemptAuthentication " + e.getMessage());
             throw new TokenException(e);
         }
+    }
+
+    @GetMapping("usuario")
+    public ResponseEntity<?> buscarUsuario(Authentication authentication){
+        System.out.println("entre");
+        return ResponseEntity.ok(usuarioService.buscarUsuario(authentication.getName()));
     }
 }
